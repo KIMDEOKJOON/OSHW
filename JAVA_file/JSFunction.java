@@ -3,6 +3,20 @@ package common;
 import jakarta.servlet.jsp.JspWriter;
 
 public class JSFunction {
+	
+	public static void alert(String msg, JspWriter out) {
+		try {
+			String script = ""
+					+"<script>"
+					+"	alert('" + msg +"');"
+					+"</script>";
+			out.println(script);			
+		}
+		catch(Exception e) {
+			
+		}
+	}	
+	
 	public static void alertLocation(String msg, String url, JspWriter out) {
 		try {
 			String script = ""
@@ -16,6 +30,7 @@ public class JSFunction {
 			
 		}
 	}
+	
 	public static void alertBack(String msg,JspWriter out) {
 		try {
 			String script = ""
@@ -30,4 +45,5 @@ public class JSFunction {
 		}	
 		
 	}
+	
 }

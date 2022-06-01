@@ -2,6 +2,8 @@
 <%@ page import="membership.MemberDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import= "common.JSFunction" %>
+<%! int Token=0; %>
 <%
 // 로그인 폼으로부터 받은 아이디와 패스워드
 String userId = request.getParameter("user_id"); 
@@ -23,11 +25,12 @@ if (memberDTO.getId() != null) {
     // 로그인 성공
     session.setAttribute("UserId", memberDTO.getId()); 
     session.setAttribute("UserName", memberDTO.getName()); 
-    response.sendRedirect("LoginForm.jsp");
+	JSFunction.alertLocation(memberDTO.getName()+" 님 환영합니다.", "List.jsp", out);
+	Token=0;
 }
 else {
     // 로그인 실패
-    request.setAttribute("LoginErrMsg", "로그인 오류입니다."); 
-    request.getRequestDispatcher("LoginForm.jsp").forward(request, response);
+    Token++;
+	JSFunction.alertLocation("아이디 혹은 비밀번호를 잘못 입력하셨습니다.", "BS_LoginForm.jsp?Token=" + Token, out);   
 }
 %>
