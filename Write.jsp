@@ -27,28 +27,33 @@ function validateForm(form){
 </head>
 <body>
 <jsp:include page="BS_Header.jsp"/>
-<jsp:include page="Link.jsp"/>
-<h2>회원제 게시판 - 글쓰기(Write)</h2>
-<form name="writeFrm" method="post" action="WriteProcess.jsp" onsubmit="return validateForm(this);">
-	<table style="border:1px; width:90%;"> <!-- 인라인style태그로 안먹힌다 -->
-		<tr>
-			<td>제목</td>
-			<td><input type="text" name="title" style="width: 90%;"/></td>
-		</tr>
-		<tr>
-			<td>내용</td>
-			<td><textarea name="content" style="width:90%;height:100px;"></textarea></td>
-		</tr>
-		<tr>
-			<td colspan="2" align="center">
-				<button type="submit">작성 완료</button>
-				<button type="reset">다시 입력</button>
-				<button type="button" onclick="location.href='List.jsp';">목록 보기</button>
-			</td>
-		</tr>
-	</table>
-
-</form>
+<div class="container" style="margin-top:3%; width:80%;">
+	<h2 align="left" style="text-shadow:1px 1px 1px #c2c2c2;">글쓰기</h2>
+	<div class="container-fruid shadow" style="margin: 0;">
+		<form name="writeFrm" method="post" action="WriteProcess.jsp" onsubmit="return validateForm(this);">
+			<table class="table" style="width:90%;"> <!-- 인라인style태그로 안먹힌다 -->
+				<tr>
+					<th style="padding:7px 0px 0px 14px ;">제목</th>
+					<td>
+						<input class="form-control me-2 " name="title" type="text" placeholder="제목을 입력하세요." aria-label="" style="width:90%;"/>
+					</td>
+				</tr>
+				<tr>
+					<th style="padding:7px 0px 0px 14px;">내용</th>
+					<td><textarea class="form-control me-2 " id="cont" name="content" placeholder="내용을 입력하세요." style="border-color:#c2c2c2;width:90%;height:200px;"></textarea></td>
+				</tr>
+				<tr>
+					<td colspan="2" align="center">
+						<button style="margin: 3px 2px;" class="btn btn-outline-dark opacity-75" type="submit">작성 완료</button>
+						<button style="margin: 3px 2px;" class="btn btn-outline-dark opacity-75" type="reset">다시 입력</button>
+						<button style="margin: 3px 2px;" class="btn btn-outline-dark opacity-75" type="button" onclick="location.href='List.jsp';">목록 보기</button>
+					</td>
+				</tr>
+			</table>
+		
+		</form>
+	</div>
+</div>	
 <jsp:include page="BS_Footer.jsp"/>
 </body>
 </html>

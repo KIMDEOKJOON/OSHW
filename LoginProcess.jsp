@@ -31,6 +31,7 @@ if (memberDTO.getId() != null) {
 else {
     // 로그인 실패
     Token++;
-	JSFunction.alertLocation("아이디 혹은 비밀번호를 잘못 입력하셨습니다.", "BS_LoginForm.jsp?Token=" + Token, out);   
+    JSFunction.location("BS_LoginForm.jsp?Token=" + Token,out);
+	  
 }
 %>

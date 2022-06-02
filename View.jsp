@@ -2,7 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ page import="membership.BoardDTO"%>
 <%@ page import="membership.BoardDAO"%>
-
+<%@ page import= "membership.MemberDTO" %>
+<%@ page import= "membership.MemberDAO" %>
 <%
 String num = request.getParameter("num");
 
@@ -34,50 +35,72 @@ function deletePost(){
 </head>
 <body>
 <jsp:include page="BS_Header.jsp"/>
-<jsp:include page="Link.jsp"/>
-<h2>회원제 게시판 - 상세보기(View)</h2>
-
-<form name="writeFrm">
-	<input type="hidden" name="num" value="<%= dto.getNum() %>"/>
-	<table border="1" width="90%">
-	<tr>
-		<td>번호</td>
-		<td><%=dto.getNum() %></td>
-		<td>작성자</td>
-		<td><%=dto.getName() %></td>
-	</tr>
-	<tr>
-		<td>작성일</td>
-		<td><%=dto.getPostdate() %></td>
-		<td>조회수</td>
-		<td><%=dto.getVisitcount() %></td>
-	</tr>
-		<tr>
-		<td>제목</td>
-		<td><%=dto.getTitle() %></td>
-
-	</tr>
-	<tr>
-		<td>내용</td>
-		<td colspan="3" height="100"><%=dto.getContent().replace("\r\n", "<br/>") %></td>
-	</tr>
-	<tr>
-		<td colspan="4" align="center">
-			<%
-			if(session.getAttribute("UserId")!=null && session.getAttribute("UserId").toString().equals(dto.getId())){
+<div class="container" style="margin-top:3%; width:80%;">
+<h2>상세보기</h2>
+	<div class="container-fruid shadow" style="margin: 0;">
+		
+		
+		<form name="writeFrm">
+			<input type="hidden" name="num" value="<%= dto.getNum() %>"/>
 			
-			%>
-			<button type="button" onclick="location.href='Edit.jsp?num=<%=dto.getNum()%>';">수정하기</button>
-			<button type="button" onclick="deletePost();">삭제하기</button>
-			<%
-			}
-			%>
-			<button type="button" onclick="location.href='List.jsp';">목록보기</button>
-		</td>
-	</tr>
+			<table class="table" width="90%">
+			<tr>
+				<th>번호</th>
+				<td><%=dto.getNum() %></td>
+				<th>열람자</th>
+<%
+if(session.getAttribute("UserId")!= null){ 
+	MemberDAO dao2=new MemberDAO(application);
+	MemberDTO dto2 = dao2.headerName(session.getAttribute("UserId").toString());
+	dao2.close();
+%>
+				<td><%=dto2.getName()%></td>
+<%
+}
+else{
+%>
+				<td>Guest</td>
+<%
+}
+%>
+			</tr>
+			<tr>
+				<th>작성자</th>
+				<td><%=dto.getName() %></td>
+				<th>작성일</th>
+				<td><%=dto.getPostdate() %></td>
+			</tr>
+			<tr>
+				<th>제목</th>
+				<th><%=dto.getTitle() %></th>
+				<th>조회수</th>
+				<th><%=dto.getVisitcount() %></th>
+			</tr>
+			<tr>
+				<th>내용</th>
+				<td colspan="3" height="100"><%=dto.getContent().replace("\r\n", "<br/>") %></td>
+			</tr>
+			<tr>
+				<td colspan="4" align="center">
+					<%
+					if(session.getAttribute("UserId")!=null && session.getAttribute("UserId").toString().equals(dto.getId())){
+					
+					%>
+					<button type="button" style="margin: 3px 2px;" class="btn btn-outline-dark opacity-75" onclick="location.href='Edit.jsp?num=<%=dto.getNum()%>';">수정하기</button>
+					<button type="button" style="margin: 3px 2px;"class="btn btn-outline-dark opacity-75" onclick="deletePost();">삭제하기</button>
+					<%
+					}
+					%>				
+					<button type="button" style="margin: 3px 2px;" class="btn btn-outline-dark opacity-75" onclick="location.href='List.jsp';">목록보기</button>
+				</td>
+			</tr>
+		
+		</table>
+		</form>
+	</div>
+</div>
 
-</table>
-</form>
+
 <jsp:include page="BS_Footer.jsp"/>
 </body>
 </html>

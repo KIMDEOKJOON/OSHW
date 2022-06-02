@@ -13,7 +13,8 @@ int Result=dao.setMemberDTO(id, pass, name);
 dao.close();
 
 if(Result == 1){
-	JSFunction.alertLocation("회원가입을 축하합니다.", "LoginForm.jsp", out);
+	session.invalidate();
+	JSFunction.alertLocation("회원가입을 축하합니다.", "BS_LoginForm.jsp", out);
 }
 else{
 	JSFunction.alertBack("회원가입에 실패하였습니다.",out);

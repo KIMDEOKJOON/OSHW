@@ -6,5 +6,5 @@
 	session.removeAttribute("UserName");
 	
 	session.invalidate();
-	JSFunction.alertLocation("정상적으로 로그아웃 되었습니다.", "List.jsp", out);	
+	JSFunction.alertLocation("정상적으로 로그아웃 되었습니다.", "BS_LoginForm.jsp", out);	
 %>

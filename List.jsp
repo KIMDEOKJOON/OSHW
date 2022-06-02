@@ -34,44 +34,60 @@ dao.close();  // DB 연결 닫기
 </head>
 <body>
  <jsp:include page="BS_Header.jsp"/>
+<div class="container" style="margin-top:3%; width:80%;">
+<h2>게시판</h2>
+<div class="container-fruid shadow" style="margin: 0;">
+  <div class="row">
+    <div class="col-md-9">
+	 <form method="get" style="padding-top: 10px;">  
+	 <table width="90%">
+	 <tr>
+	     <td align="right">
+             <select class="form-select" name ="searchField" aria-label="Default select example" style="width:70px;display:inline-block;">
+	             <option value="title">제목</option> 
+	             <option value="content">내용</option>
+			 </select>
+	         <input class="form-control me-2 " name="searchWord" type="text" placeholder="Search" aria-label="Search" style="width:200px;display:inline-block;"/>
+	         <input class="btn btn-outline-primary" type="submit" value="검색하기" />
+	     </td>    
+	 </tr>   
+	 </table>
+	 </form>
+    </div>
+    
+    <div class="col-md-3" align="right" style="padding: 0px;">
+    <button type="button" class="btn btn-primary" onclick="location.href='Write.jsp';" style="margin:10px 20px 10px 10px ;padding:5px 10px 5px 10px;">글쓰기</button>
+	</div>
+    
+  </div>
+  
 
- <h2>목록 보기(List)</h2>
- <!-- 검색폼 --> 
- <form method="get">  
- <table border="1" width="90%">
- <tr>
-     <td align="center">
-         <select name="searchField"> 
-             <option value="title">제목</option> 
-             <option value="content">내용</option>
-         </select>
-         <input type="text" name="searchWord" />
-         <input type="submit" value="검색하기" />
-     </td>
- </tr>   
- </table>
- </form>
- 
+
  <!-- 게시물 목록 테이블(표) --> 
- <table border="1" width="90%">
+ <table class="table" width="90%" align="center">
      <!-- 각 칼럼의 이름 --> 
+   <thead>  
      <tr>
-         <th width="10%">번호</th>
-         <th width="50%">제목</th>
-         <th width="15%">작성자</th>
+         <th width="10%" align="left">번호</th>
+         <th width="45%">제목</th>
+         <th width="20%">작성자</th>
          <th width="10%">조회수</th>
          <th width="15%">작성일</th>
      </tr>
+   </thead>
      <!-- 목록의 내용 --> 
+     
 <%
 if (boardLists.isEmpty()) {
  // 게시물이 하나도 없을 때 
-%>
+%> 
+   <tbody>
      <tr>
          <td colspan="5" align="center">
-             등록된 게시물이 없습니다^^*
+             <b>등록된 게시물이 없습니다!</b>
          </td>
      </tr>
+   </tbody>
 <%
 }
 else {
@@ -81,27 +97,41 @@ else {
  {
      virtualNum = totalCount--;  // 전체 게시물 수에서 시작해 1씩 감소
 %>
+   <tbody>
      <tr align="center">
-         <td><%= virtualNum %></td>  <!--게시물 번호-->
+         <td align="left"><%= virtualNum %></td>  <!--게시물 번호-->
          <td align="left">  <!--제목(+ 하이퍼링크)-->
-             <a href="View.jsp?num=<%= dto.getNum() %>"><%= dto.getTitle() %></a> 
+             <a href="View.jsp?num=<%= dto.getNum() %>" style="text-decoration-line:none;"><%= dto.getTitle() %></a> 
          </td>
-         <td align="center"><%= dto.getId() %></td>          <!--작성자 아이디-->
-         <td align="center"><%= dto.getVisitcount() %></td>  <!--조회수-->
+         <td align="left"><%= dto.getId() %></td>          <!--작성자 아이디-->
+         <td align="left"><%= dto.getVisitcount() %></td>  <!--조회수-->
          <td align="center"><%= dto.getPostdate() %></td>    <!--작성일-->
      </tr>
+   </tbody>
 <%
  }
 }
 %>
- </table>
- <!--목록 하단의 [글쓰기] 버튼-->
- <table border="1" width="90%">
-     <tr align="right">
-         <td><button type="button" onclick="location.href='Write.jsp';">글쓰기
-             </button></td>
-     </tr>
- </table>
+</table>
+
+<nav aria-label="Page navigation example" style="padding-bottom:0.5px;">
+  <ul class="pagination justify-content-center">
+    <li class="page-item disabled">
+      <a class="page-link"><<</a>
+    </li>
+    <li class="page-item"><a class="page-link" href="#">1</a></li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item">
+      <a class="page-link" href="#">>></a>
+    </li>
+  </ul>
+</nav>
+
+</div>
+</div>
+
+
 <jsp:include page="BS_Footer.jsp"/>
 </body>
 </html>
